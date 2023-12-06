@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Header from "./components/Header";
+
+import Body from "./components/Body";
+import MainContainer from "./components/MainContainer";
+
+import { Provider } from "react-redux";
+import store from "./Utils/Store";
+import Serachpage from "./components/Serachpage";
+import WacthPage from "./components/WacthPage";
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Provider store={store}>
+      <BrowserRouter>
+        <div>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Body />}>
+              <Route index element={<MainContainer />} />
+              <Route path="wacth" element={<WacthPage />} />
+              <Route path="/search/:id" element={<Serachpage />} />
+            </Route>
+            
+          </Routes>
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
